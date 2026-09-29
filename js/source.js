@@ -99,9 +99,124 @@ $(function () {
     // Do not modify the JS objects above. You will write your code below.
     // *********************************************************************
 
+    const usernameContainer = $('#username');
+    usernameContainer.append(username);
 
+    const revenueContaienr = $(".revenue-amt");
+    revenueContaienr.append(revenueAmt);
 
-       
+    const customerContainer = $('#customer-num');
+    customerContainer.append(customerNum);
+
+    const ordersContainer =  $('#orders-amt');
+    ordersContainer.append(ordersAmt);
+
+    const issuesContainer = $('#issues-amt');
+    issuesContainer.append(issuesAmt);
+
+    const taskNum = $('#notification-num');
+    taskNum.append(notifAmt)
+    
+    const salesTable = $('#salesTableBody');
+    sales.forEach(item =>{
+        salesTable.append(`
+            <tr>
+            <td>${item.product}</td>
+            <td>${item.quantity}</td>
+            <td>${item.revenue}</td>
+            </tr>
+            `);
 
 
     });
+
+    const activityList = $('#activity-list');
+    activities.forEach(item =>{
+        activityList.append(`<li>${item.message} </li>`)
+
+
+
+
+
+
+    });
+//the class doesnt work because status is capatilized and the class name is not.
+    const customerTable = $('#customerTableBody');
+    customers.forEach(item =>{
+        customerTable.append(`
+                <tr>
+                <td>${item.name}</td>
+                <td>${item.email}</td>
+                
+                <td><span class="status status-${item.status.toLocaleLowerCase()}">${item.status}</span></td>
+                <td>${item.joined}</td>
+                </tr>
+            `);
+
+
+    });
+
+    const systemList = $('#system-status-list');
+    messages.forEach(item=>{
+
+        systemList.append(`<li>${item.messsage}</li>`);
+    });
+
+
+    const notificationList = $('#notifications-list');
+    notifications.forEach(item=>{
+        notificationList.append(`<li>${item.messsage}</li>`);
+    });
+
+    const tasksList = $('#tasks-list');
+    tasks.forEach(item=>{
+        tasksList.append(`<li>${item.messsage}</li>`);
+
+    });
+
+    $('button').button();
+
+    $('#dashboardTabs').tabs();
+
+    $('#customerDialog').dialog({
+        autoOpen: false,
+        modal: true,
+        width: 450,
+
+        buttons: {
+            "Create Customer": function () {
+
+                var name = $("#customerName").val();
+                var email = $("#customerEmail").val();
+
+                if (!name || !email) {
+                    alert("Please enter a name and email.");
+                    return;
+                }
+
+                alert("Customer created: " + name);
+
+                $(this).dialog("close");
+            },
+
+            "Cancel": function () {
+                $(this).dialog("close");
+            }
+        }
+
+    });
+
+    $('#accordion').accordion({
+        collapsible: true,
+        heightStyle: "content"
+    });
+
+    $('#newCustomerButton').click(function(){
+        $('#customerDialog').dialog('open');
+    });
+
+    $('#customerDate').datepicker();
+
+
+    });
+
